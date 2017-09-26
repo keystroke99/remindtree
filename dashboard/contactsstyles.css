@@ -1,0 +1,103 @@
+@import "compass/css3";
+
+.twotabsonly ul#nav li a {
+    display: block;
+    padding: 10px 15px;
+    background: #fff !important;
+    border-top: 0px solid #eee !important;
+    border-bottom: 0px solid #999 !important;
+    text-decoration: none;
+    color: #000;
+}
+.twotabsonly ul#nav li a:hover {
+	background: #fff !important;
+    color: #000 !important;
+}
+
+.twotabsonly ul#nav li a.active {
+    background: #fff !important;
+    color: #fb9678 !important;
+}
+.twotabsonly ul#nav {
+    margin: 24px auto;
+    border-top: 1px solid #999;
+    border-right: 1px solid #999;
+    border-left: 1px solid #999;
+    width: 95%;
+}
+@media (min-width: 320px) and (max-width: 960px) {
+    ul#nav.twotabsonly {
+      padding: 0;
+      overflow-x: scroll !important;
+    }  
+}
+
+
+ul#nav.twotabsonly li {
+  list-style: none; 
+}
+ul#nav.twotabsonly li a {
+    display: block;
+    padding: 10px 15px;
+    background: #fff !important;
+    border-top: 0px solid #eee;
+    border-bottom: 0px solid #999;
+    text-decoration: none;
+    color: #000;
+    border: 0px;
+}
+ul#nav.twotabsonly>li a:hover, ul#nav.twotabsonly>li a.active {
+    background: #fff !important;
+    color: #111;
+}
+
+
+@media (min-width: 768px) and (max-width: 1960px) { 
+	.table-responsive {
+		display: table !important;
+	}
+}
+@media (min-width: 320px) and (max-width: 768px) {
+	.table-responsive {
+		display: block !important;
+	}
+		ul#nav section {
+	  display: none; /* I NEED TO FIX THIS */
+	  float: none !important;
+		background: #fff;
+		overflow: hidden; 
+	  padding: 1% 3% 0 3%;
+	}
+}
+ul#nav.twotabsonly section {
+  display: none; /* I NEED TO FIX THIS */
+  float: left;
+    background: #fff;
+    overflow: hidden; 
+  padding: 1% 3% 0 3%;
+}
+
+.no-js #nav section {
+  display: block; /* I NEED TO FIX THIS */
+  width: 100% !important;
+}
+ul#nav.twotabsonly li a {
+    padding: 10px 25px;
+    
+}
+
+@media only screen and (min-width: 30em) { 
+    ul#nav.twotabsonly {width: 100%; position: relative; border: none; }
+    ul#nav.twotabsonly li { display: inline; }
+    ul#nav.twotabsonly li a {display: inline-block;     width: 49%; text-align: center;}  
+    ul#nav.twotabsonly section { padding: 3%; position: relative; top: 10px; left: 0;  width: 100%;}
+
+    #innertabs li a {
+        width: 100% !important;
+        border-bottom: 0px sold #ddd !important; 
+    }
+    .nav-tabs#innertabs {
+            border-bottom: 0px solid #dddddd !important; 
+    }
+    
+}
