@@ -16,8 +16,7 @@
     <script src="{{asset('js/jquery.slimscroll.js')}}"></script>
     <!--Wave Effects -->
     <script src="{{asset('js/waves.js')}}"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="{{asset('js/custom.min.js')}}"></script>
+    
 
      <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
     <!-- start - This is for export functionality only -->
@@ -25,7 +24,15 @@
 
     <!--Style Switcher -->
     <script src="{{asset('plugins/bower_components/styleswitcher/jQuery.style.switcher.js')}}"></script>
-	<script>
+
+    <!-- Intel Input -->
+    <script src="{{asset('js/intlTelInput.js')}}"></script>
+    <script
+      src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+	   
+  <script>
+
+     $.noConflict();
 		var rangeSlider = function(){
 		  var slider = $('.range-slider'),
 			  range = $('.range-slider__range'),
@@ -49,9 +56,40 @@
 
     <script>
         $(document).ready(function () {
+
+            // Intel Input Country Codes List
+            $("#phone").intlTelInput({
+              // allowDropdown: false,
+              // autoHideDialCode: false,
+              // autoPlaceholder: "off",
+              // dropdownContainer: "body",
+              // excludeCountries: ["us"],
+              // formatOnDisplay: false,
+              // geoIpLookup: function(callback) {
+              //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+              //     var countryCode = (resp && resp.country) ? resp.country : "";
+              //     callback(countryCode);
+              //   });
+              // },
+              hiddenInput: "full_number",
+              // initialCountry: "auto",
+              // nationalMode: false,
+              // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+              // placeholderNumberType: "MOBILE",
+              // preferredCountries: ['cn', 'jp'],
+              separateDialCode: true,
+              utilsScript: "build/js/utils.js"
+            });
+            $("form").submit(function() {
+              var intlNumber = $("#demo").intlTelInput("getNumber");
+              alert(JSON.parse(intlNumber));
+            });
+
+            
             $('#myTable').DataTable();
             
             $(document).ready(function () {
+              $.noConflict();
                 var table = $('#example').DataTable({
                     "columnDefs": [
                         {
@@ -113,8 +151,57 @@
                   }
                });
             });
+
+
+        
+
+
     </script>
 
+<!-- Custom Theme JavaScript -->
+    <script src="{{asset('js/custom.min.js')}}"></script>
+
+    // Contacts Add Remove
+
+      
+      <script type="text/javascript">
+        
+        
+       
+        $(function(){
+      // GET ID OF last row and increment it by one
+      var $lastChar =1, $newRow;
+      $get_lastID = function(){
+        var $id = $('#expense_table tr:last-child td:first-child input').attr("name");
+        $lastChar = parseInt($id.substr($id.length - 2), 10);
+        //console.log('GET id: ' + $lastChar + ' | $id :'+$id);
+        $lastChar = $lastChar + 1;
+        $newRow = "<tr> \
+              <td><input type='text' name='mobileNo[]' maxlength='255' required /></td> \
+              <td><input type='email' name='email[]' maxlength='255' required /></td> \
+                <td><input type='text' name='firstName[]' maxlength='11' required /></td> \
+                <td><input type='text' name='lastName[]' maxlength='11' required /></td> \
+              <td><input type='button' value='Delete' class='del_ExpenseRow' /></td> \
+            </tr>"
+        return $newRow;
+      }
+      
+      // ***** -- START ADDING NEW ROWS
+      $('#add_ExpenseRow').live("click", function(){
+        if($('#expense_table tr').size() <= 9){
+          $get_lastID();
+          $('#expense_table tbody').append($newRow);
+        } else {
+          alert("Reached Maximum Rows!");
+        };
+      });
+      
+      $(".del_ExpenseRow").live("click", function(){ 
+        $(this).closest('tr').remove();
+        $lastChar = $lastChar-2;
+      }); 
+    });
+      </script>
 
 
 </body>

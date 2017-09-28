@@ -32,7 +32,7 @@
 													<div class="row-fluid">
 																	
 														<div class="span12">
-															<div class="row">
+															<!-- <div class="row">
 																<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 																	<input type="search" class="col-lg-3 pull-left form-control" name="search" placeholder="search">
 																</div>
@@ -53,7 +53,7 @@
 																		</optgroup>
 																	</select>
 																</div>
-															</div>	
+															</div>	 -->
 															<br>															
 															<form name="thisForm">
 																<table id="myTable" class="table table-striped table-bordered" width="100%" cellspacing="0">
@@ -70,15 +70,16 @@
 																		</tr>
 																	</thead>
 																	<tbody>
-																		<tr>
+																		@foreach($contacts as $contact)
+																			<tr>
 																			<td width="5%" align="center"><input type="checkbox" name="name1" value="28"></td>
-																			<td><style="color: skyblue;"=""><b>NitinTaraka</b></style="color:></td>
-																			<td><style="color: skyblue;"="">tarakanitin1@gmail.com</style="color:></td>
-																			<td>1234567890</td>
+																			<td><b>{{ $contact->contact_name }}</b></td>
+																			<td>{{ $contact->contact_email }}</td>
+																			<td>{{ $contact->contact_mobile }}</td>
 																			<td>
-																				<select id="team_list" name="team_list[]"></select>
+																				{{ $contact->groupname }}
 																			</td>
-																			<td>11-22-33</td>
+																			<td>{{ date('Y-m-d', strtotime($contact->created_at)) }}</td>
 																			<td>Active
 																				
 																			</td>
@@ -89,87 +90,10 @@
 																					<option>Delete</option>
 																				</select></td>
 																		</tr>
-																		<tr>
-																			<td width="5%" align="center"><input type="checkbox" name="name1" value="28"></td>
-																			<td><style="color: skyblue;"=""><b>NitinTaraka</b></style="color:></td>
-																			<td><style="color: skyblue;"="">tarakanitin1@gmail.com</style="color:></td>
-																			<td>1234567890</td>
-																			<td>
-																				<select id="team_list" name="team_list[]"></select>
-																			</td>
-																			<td>11-22-33</td>
-																			<td>Active
-																				
-																			</td>
-																			<td><select id="team_list" name="team_list[]">
-																					<option>Select</option>
-																					<option>Send</option>
-																					<option>Edit</option>
-																					<option>Delete</option>
-																				</select></td>
-																		</tr>
-																		<tr>
-																			<td width="5%" align="center"><input type="checkbox" name="name1" value="28"></td>
-																			<td><style="color: skyblue;"=""><b>NitinTaraka</b></style="color:></td>
-																			<td><style="color: skyblue;"="">tarakanitin1@gmail.com</style="color:></td>
-																			<td>1234567890</td>
-																			<td>
-																				<select id="team_list" name="team_list[]"></select>
-																			</td>
-																			<td>11-22-33</td>
-																			<td>Active
-																				
-																			</td>
-																			<td><select id="team_list" name="team_list[]">
-																					<option>Select</option>
-																					<option>Send</option>
-																					<option>Edit</option>
-																					<option>Delete</option>
-																				</select></td>
-																		</tr>
-																		<tr>
-																			<td width="5%" align="center"><input type="checkbox" name="name1" value="28"></td>
-																			<td><style="color: skyblue;"=""><b>NitinTaraka</b></style="color:></td>
-																			<td><style="color: skyblue;"="">tarakanitin1@gmail.com</style="color:></td>
-																			<td>1234567890</td>
-																			<td>
-																				<select id="team_list" name="team_list[]"></select>
-																			</td>
-																			<td>11-22-33</td>
-																			<td>Active
-																				
-																			</td>
-																			<td><select id="team_list" name="team_list[]">
-																					<option>Select</option>
-																					<option>Send</option>
-																					<option>Edit</option>
-																					<option>Delete</option>
-																				</select></td>
-																		</tr>
-																		<tr>
-																			<td width="5%" align="center"><input type="checkbox" name="name1" value="28"></td>
-																			<td><style="color: skyblue;"=""><b>NitinTaraka</b></style="color:></td>
-																			<td><style="color: skyblue;"="">tarakanitin1@gmail.com</style="color:></td>
-																			<td>1234567890</td>
-																			<td>
-																				<select id="team_list" name="team_list[]"></select>
-																			</td>
-																			<td>11-22-33</td>
-																			<td>Active
-																				
-																			</td>
-																			<td><select id="team_list" name="team_list[]">
-																					<option>Select</option>
-																					<option>Send</option>
-																					<option>Edit</option>
-																					<option>Delete</option>
-																				</select></td>
-																		</tr>
-																
-																	</tbody>
-																	
+																		@endforeach																
+																	</tbody>	
 																</table>
-																<BR>
+																<br>
 																<div>
 																<button class="btn btn-danger" type="submit">Delete</button>
 																<button class="btn btn-success" type="submit">Send SMS</button>
@@ -184,21 +108,10 @@
 													 <section>
 													  
 															<form class="omb_loginForm" action="" autocomplete="off" method="POST">
-																<div  class="row">
+																<!-- <div  class="row">
 																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		
-																		<select class="form-control" id="state" style="width: 100%;">
-																				<option style="width: 100%;" data-countryCode="US" value="1">USA (+1)</option>
-																				<optgroup label="Other countries" style="width: 100%;">
-																					<option data-countryCode="DZ" value="213">Algeria (+213)</option>
-																					<option data-countryCode="AD" value="376">Andorra (+376)</option>
-																					<option data-countryCode="AO" value="244">Angola (+244)</option>
-																					<option data-countryCode="AI" value="1264">Anguilla (+1264)</option>
-																					<option data-countryCode="AG" value="1268">Antigua &amp; Barbuda (+1268)</option>
-																					<option data-countryCode="AR" value="54">Argentina (+54)</option>
-																					<option data-countryCode="AM" value="374">Armenia (+374)</option>
-																				</optgroup>
-																			</select>	
+																		 <input id="phone" type="tel">
+																	
 																	</div>
 																	<div class="col-md-5 col-lg-5" id="marginbottom">
 																		
@@ -217,79 +130,35 @@
 																		<a href="" title="Click to delete" onclick="return confirm('Do you want to delete?');" style="    padding: 8px 20px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 																	</div>
 																	
-																</div>
-																<div  class="row">
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		<div class="input-group" id="marginbottom">
-																			<select class="form-control" id="state" style="width: 100%;">
-																				<option style="width: 100%;" data-countryCode="US" value="1">USA (+1)</option>
-																				<optgroup label="Other countries" style="width: 100%;">
-																					<option data-countryCode="DZ" value="213">Algeria (+213)</option>
-																					<option data-countryCode="AD" value="376">Andorra (+376)</option>
-																					<option data-countryCode="AO" value="244">Angola (+244)</option>
-																					<option data-countryCode="AI" value="1264">Anguilla (+1264)</option>
-																					<option data-countryCode="AG" value="1268">Antigua &amp; Barbuda (+1268)</option>
-																					<option data-countryCode="AR" value="54">Argentina (+54)</option>
-																					<option data-countryCode="AM" value="374">Armenia (+374)</option>
-																				</optgroup>
-																			</select>
-																		</div>
-																	</div>
-																	<div class="col-md-5 col-lg-5" id="marginbottom">
-																		
-																		<input type="email" class="form-control" name="email" placeholder="Email Address" style="width: 100%;">
-																	</div>
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		
-																		<input type="text" class="form-control" name="firstname" placeholder="First Name" style="width: 100%;">
-																	</div>
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		
-																		<input type="text" class="form-control" name="lastname" placeholder="Last Name" style="width: 100%;">
-																	</div>
-																	<div class="col-md-1 col-lg-1" id="marginbottom">
-																		
-																		<a href="" title="Click to delete" onclick="return confirm('Do you want to delete?');" style="    padding: 8px 20px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-																	</div>
-																	
-																</div>
-																
-																<div  class="row">
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		<div class="input-group" id="marginbottom">
-																			<select class="form-control" id="state" style="width: 100%;">
-																				<option style="width: 100%;" data-countryCode="US" value="1">USA (+1)</option>
-																				<optgroup label="Other countries" style="width: 100%;">
-																					<option data-countryCode="DZ" value="213">Algeria (+213)</option>
-																					<option data-countryCode="AD" value="376">Andorra (+376)</option>
-																					<option data-countryCode="AO" value="244">Angola (+244)</option>
-																					<option data-countryCode="AI" value="1264">Anguilla (+1264)</option>
-																					<option data-countryCode="AG" value="1268">Antigua &amp; Barbuda (+1268)</option>
-																					<option data-countryCode="AR" value="54">Argentina (+54)</option>
-																					<option data-countryCode="AM" value="374">Armenia (+374)</option>
-																				</optgroup>
-																			</select>
-																		</div>
-																	</div>
-																	<div class="col-md-5 col-lg-5" id="marginbottom">
-																		
-																		<input type="email" class="form-control" name="email" placeholder="Email Address" style="width: 100%;">
-																	</div>
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		
-																		<input type="text" class="form-control" name="firstname" placeholder="First Name" style="width: 100%;">
-																	</div>
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		
-																		<input type="text" class="form-control" name="lastname" placeholder="Last Name" style="width: 100%;">
-																	</div>
-																	<div class="col-md-1 col-lg-1" id="marginbottom">
-																		
-																		<a href="" title="Click to delete" onclick="return confirm('Do you want to delete?');" style="    padding: 8px 20px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-																	</div>
-																	
-																</div>
-																<div  class="row">
+																</div> -->
+																<table class="table table-hover" id="participantTable">
+																        <thead>
+																            <tr>
+																                <th>Mobile No.</th>
+																                <th>Email</th>
+																                <th>First Name</th>
+																                <th>Last Name</th>
+																            </tr>
+																        </thead>
+																        <tr class="participantRow">
+																            <td>
+																            	<input type="text" name="mobile[]" placeholder="Mobile no with Country Code" class="form-control" required>
+																            </td>
+																            <td>
+																            	<input type="email" class="form-control" name="email[]" placeholder="Email Address" style="width: 100%;">
+																            </td>
+																            <td><input name="firstname[]" id="" type="text" placeholder="First Name" class="form-control" required>
+																              </td>
+																            <td>
+																                <input name="lastname[]" id="" type="text" placeholder="Last Name" class="form-control" required>
+																            </td>
+																            <td><button class="btn btn-danger remove" type="button">Remove</button></td>
+																        </tr>
+																        <tr id="addButtonRow">
+																            <td colspan="4"><center><button class="btn btn-large btn-success add" type="button">Add</button></center></td>
+																        </tr>
+																</table>
+																<!-- <div  class="row">
 																	<div class="col-md-2 col-lg-2" id="marginbottom">
 																		<div class="input-group" id="marginbottom">
 																			<select class="form-control" id="state" style="width: 100%;">
@@ -323,7 +192,7 @@
 																		<button class="btn btn-info" type="submit">Add</button>	
 																	</div>
 																	
-																</div>
+																</div> -->
 																<BR>
 																<div style="float: right;">
 																<button class="btn btn-danger" type="submit">Cancel</button>
