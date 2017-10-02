@@ -17,3 +17,12 @@ Route::get('/', function () {
 
 Route::get('dashboard','DashboardController@index');
 Route::get('contacts','DashboardController@contacts');
+
+
+Route::get('viewcontact/{id}', 'DashboardController@viewcontact');
+
+Route::get('deletecontact/{id}', 'DashboardController@deletecontact');
+
+Route::post('updatecontact/{id}', 'DashboardController@updatecontact');
+
+Route::post('multipledelete', 'DashboardController@multipledelete');

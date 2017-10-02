@@ -4,7 +4,9 @@
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
+
     <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
     <script src="{{asset('plugins/bower_components/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="{{asset('bootstrap/dist/js/tether.min.js')}}"></script>
@@ -25,71 +27,38 @@
     <!--Style Switcher -->
     <script src="{{asset('plugins/bower_components/styleswitcher/jQuery.style.switcher.js')}}"></script>
 
-    <!-- Intel Input -->
-    <script src="{{asset('js/intlTelInput.js')}}"></script>
-    <script
-      src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
-	   
-  <script>
 
-     $.noConflict();
-		var rangeSlider = function(){
-		  var slider = $('.range-slider'),
-			  range = $('.range-slider__range'),
-			  value = $('.range-slider__value');
-			
-		  slider.each(function(){
 
-			value.each(function(){
-			  var value = $(this).prev().attr('value');
-			  $(this).html(value);
-			});
-
-			range.on('input', function(){
-			  $(this).next(value).html(this.value);
-			});
-		  });
-		};
-
-		rangeSlider();
-	</script>
 
     <script>
         $(document).ready(function () {
 
-            // Intel Input Country Codes List
-            $("#phone").intlTelInput({
-              // allowDropdown: false,
-              // autoHideDialCode: false,
-              // autoPlaceholder: "off",
-              // dropdownContainer: "body",
-              // excludeCountries: ["us"],
-              // formatOnDisplay: false,
-              // geoIpLookup: function(callback) {
-              //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-              //     var countryCode = (resp && resp.country) ? resp.country : "";
-              //     callback(countryCode);
-              //   });
-              // },
-              hiddenInput: "full_number",
-              // initialCountry: "auto",
-              // nationalMode: false,
-              // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-              // placeholderNumberType: "MOBILE",
-              // preferredCountries: ['cn', 'jp'],
-              separateDialCode: true,
-              utilsScript: "build/js/utils.js"
-            });
-            $("form").submit(function() {
-              var intlNumber = $("#demo").intlTelInput("getNumber");
-              alert(JSON.parse(intlNumber));
-            });
 
+
+            var rangeSlider = function(){
+              var slider = $('.range-slider'),
+                range = $('.range-slider__range'),
+                value = $('.range-slider__value');
+              
+              slider.each(function(){
+
+              value.each(function(){
+                var value = $(this).prev().attr('value');
+                $(this).html(value);
+              });
+
+              range.on('input', function(){
+                $(this).next(value).html(this.value);
+              });
+              });
+            };
+
+            rangeSlider();
             
-            $('#myTable').DataTable();
+            $('#contactsTable').DataTable();
             
             $(document).ready(function () {
-              $.noConflict();
+         
                 var table = $('#example').DataTable({
                     "columnDefs": [
                         {
@@ -127,12 +96,7 @@
                     }
                 });
             });
-        });
-        
-    </script>
-    <script>
-        $(document).ready(function () {
-            
+
             $('#nav').children('li').first().children('a').addClass('active')
                 .next().addClass('is-open').show();
                 
@@ -150,60 +114,145 @@
                     $(this).removeClass('active');
                   }
                });
-            });
 
 
+
+        });
+
+
+        // Edit Contact
         
+        function showModal(data)
+                {
+                   var id = data;
 
+                           $.ajax({
+                                   url:'/viewcontact/'+id,
+                                   dataType:'json',
+                                   type:'get',
+                                   cache:true,
+                                   success:  function (response) {
+                                       console.log(response);
+                                       $('#modalname').val(response.contact_name);
+                                       $('#modalemail').val(response.contact_email);
+                                       $('#modalphone').val(response.contact_mobile);
+                                   },              
+                           });
+                  
+                   $("#myModal").modal();
+
+                   // Form Submission
+                       $("#editcontactform").submit(function(e) {
+                          console.log("Form Submission" + id);
+                       //prevent Default functionality
+                       e.preventDefault();
+
+                       //get the action-url of the form
+                       var actionurl = "/updatecontact/"+id;
+
+                       //do your own request an handle the results
+                       $.ajax({
+                               url: actionurl,
+                               type: 'post',
+                               dataType: 'application/json',
+                               data: {contact_name: $('#modalname').val(), contact_email: $('#modalemail').val(), contact_mobile: $('#modalphone').val(), _token:'{{ csrf_token() }}'},
+                               success: function(data) {
+                                  console.log(data);
+                                  $('#myModal').modal('hide');
+                               }
+                       });
+                       $('#myModal').modal('hide');
+
+                       var table = $('#contactsTable').DataTable();
+
+                       location.reload();
+
+                   });
+
+                }
+
+        // Delete Contact
+
+        function deleteContact(contactid) {
+          var id = contactid;
+            if (confirm("Are you sure?")) {
+
+              $.ajax({
+                      url:'/deletecontact/'+id,
+                      dataType:'json',
+                      type:'get',
+                      cache:true,
+                      success:  function (response) {
+                          console.log(response);
+                         location.reload();
+                      },              
+              });
+                
+            }
+            return false;
+        }
+
+
+        // Multiple Contacts Delete
+
+            function checkboxclicked(){
+              console.log('delete button cliked');
+              if (confirm("Are you sure?")) {
+
+                 var searchIDs = $("#contactsTable input:checkbox:checked").map(function(){
+                       return $(this).val();
+                     }).get(); // <----
+                     console.log(searchIDs);
+
+                    var url = "multipledelete";
+                    $.ajax({
+                               url: url,
+                               type: 'post',
+                               dataType: 'application/json',
+                               data: {ids: searchIDs, _token:'{{ csrf_token() }}'},
+                               success: function(data) {
+                                  console.log(data);
+                                 
+                               }
+                       });
+                    location.reload();
+                  }
+               }
 
     </script>
+
 
 <!-- Custom Theme JavaScript -->
     <script src="{{asset('js/custom.min.js')}}"></script>
 
-    // Contacts Add Remove
+    
+    <script type="text/javascript">
+        // Add Contacts
+        var i = 1;
+        $("#addButton").click(function () {
+            $("#participantTable tr:first").clone().find("input").each(function () {
+                $(this).val('').attr({
+                    'id': function (_, id) {
+                        return id + i
+                    },
+                        'name': function (_, name) {
+                        return name + i
+                    },
+                        'value': ''
+                });
+            }).end().appendTo("#participantTable");
+            i++;
+        });
 
-      
-      <script type="text/javascript">
-        
-        
-       
-        $(function(){
-      // GET ID OF last row and increment it by one
-      var $lastChar =1, $newRow;
-      $get_lastID = function(){
-        var $id = $('#expense_table tr:last-child td:first-child input').attr("name");
-        $lastChar = parseInt($id.substr($id.length - 2), 10);
-        //console.log('GET id: ' + $lastChar + ' | $id :'+$id);
-        $lastChar = $lastChar + 1;
-        $newRow = "<tr> \
-              <td><input type='text' name='mobileNo[]' maxlength='255' required /></td> \
-              <td><input type='email' name='email[]' maxlength='255' required /></td> \
-                <td><input type='text' name='firstName[]' maxlength='11' required /></td> \
-                <td><input type='text' name='lastName[]' maxlength='11' required /></td> \
-              <td><input type='button' value='Delete' class='del_ExpenseRow' /></td> \
-            </tr>"
-        return $newRow;
-      }
-      
-      // ***** -- START ADDING NEW ROWS
-      $('#add_ExpenseRow').live("click", function(){
-        if($('#expense_table tr').size() <= 9){
-          $get_lastID();
-          $('#expense_table tbody').append($newRow);
-        } else {
-          alert("Reached Maximum Rows!");
-        };
-      });
-      
-      $(".del_ExpenseRow").live("click", function(){ 
-        $(this).closest('tr').remove();
-        $lastChar = $lastChar-2;
-      }); 
-    });
-      </script>
+        $(document).on('click', 'button.removebutton', function () {
+            alert("Are you sure to remove this contact?");
+            $(this).closest('tr').remove();
+            return false;
+        });
 
-
+    </script>
+      
+     
 </body>
 
 </html>

@@ -73,9 +73,7 @@
 																	<tbody>
 																		@foreach($contacts as $contact)
 																			<tr>
-																			<td width="5%" align="center">
-																				<input type="checkbox" name="sno" value="{{ $contact->id }}">
-																			</td>
+																			<td width="5%" align="center"><input type="checkbox" name="name1" value="28"></td>
 																			<td><b>{{ $contact->contact_name }}</b></td>
 																			<td>{{ $contact->contact_email }}</td>
 																			<td>{{ $contact->contact_mobile }}</td>
@@ -88,8 +86,8 @@
 																			</td>
 																			<td>
 																				<button class="btn btn-primary"><i class="fa fa-envelope-o" aria-hidden="true"></i></button>
-																				<button class="btn btn-info" onclick="showModal({{ $contact->id }})"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-																				<button class="btn btn-danger" onclick="deleteContact({{ $contact->id }})"><i class="fa fa-trash" aria-hidden="true"></i></button>
+																				<button class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+																				<button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
 																			</td>
 																		</tr>
 																		@endforeach																
@@ -97,7 +95,7 @@
 																</table>
 																<br>
 																<div>
-																<button class="btn btn-danger" onclick="checkboxclicked();">Delete</button>
+																<button class="btn btn-danger" type="submit">Delete</button>
 																<button class="btn btn-success" type="submit">Send SMS</button>
 																</div>
 															</form>
@@ -134,14 +132,14 @@
 																	
 																</div> -->
 																<table class="table table-hover" id="participantTable">
-																       <!--  <thead>
+																        <thead>
 																            <tr>
 																                <th>Mobile No.</th>
 																                <th>Email</th>
 																                <th>First Name</th>
 																                <th>Last Name</th>
 																            </tr>
-																        </thead> -->
+																        </thead>
 																        <tr class="participantRow">
 																            <td>
 																            	<input type="text" name="mobile[]" placeholder="Mobile no with Country Code" class="form-control" required>
@@ -154,13 +152,12 @@
 																            <td>
 																                <input name="lastname[]" id="" type="text" placeholder="Last Name" class="form-control" required>
 																            </td>
-																            <td><button class="btn btn-danger remove removebutton" type="button" title="Remove this row">Remove</button></td>
+																            <td><button class="btn btn-danger remove" type="button">Remove</button></td>
 																        </tr>
-																        
+																        <tr id="addButtonRow">
+																            <td colspan="4"><center><button class="btn btn-large btn-success add" type="button">Add</button></center></td>
+																        </tr>
 																</table>
-																<tr id="addButtonRow">
-																            <td colspan="4"><center><button class="btn btn-large btn-success add" type="button" id="addButton">Add</button></center></td>
-																        </tr>
 																<!-- <div  class="row">
 																	<div class="col-md-2 col-lg-2" id="marginbottom">
 																		<div class="input-group" id="marginbottom">
@@ -453,22 +450,24 @@
 
 		            </div>
 		            <div class="modal-body">
-		            	<form id="editcontactform" method="POST">
-		            		{{csrf_field()}}
+		            	<form action="" method="POST">
 		            	<div class="form-group">
 		            		<div class="form-group">
-		            	    <label for="modalname">Name</label>
-		            	    <input type="text" name="contact_name" class="form-control" id="modalname" placeholder="Name">
+		            	    <label for="name">Name</label>
+		            	    <input type="text" class="form-control" id="name" placeholder="Name">
 		            	  </div>
-		            	    <label for="modalemail">Email address</label>
-		            	    <input type="email" name="contact_email" class="form-control" id="modalemail" aria-describedby="emailHelp" placeholder="Enter email">
+		            	    <label for="email">Email address</label>
+		            	    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
 		            	    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 		            	  </div>
 		            	  <div class="form-group">
-		            	    <label for="modalphone">Phone Number</label>
-		            	    <input type="text" name="contact_mobile" class="form-control" id="modalphone" placeholder="Phone Number">
+		            	    <label for="mobile">Phone Number</label>
+		            	    <input type="text" class="form-control" id="mobile" placeholder="Phone Number">
 		            	  </div>
-		            	 
+		            	  <div class="form-group">
+		            	    <label for="group">Group</label>
+		            	    <input type="text" class="form-control" id="group" placeholder="Group Name">
+		            	  </div>
 		            </div>
 		            <div class="modal-footer">
 		                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
