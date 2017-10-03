@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Contact;
+use Excel;
+use Input;
 
 
 class DashboardController extends Controller
@@ -59,4 +61,48 @@ class DashboardController extends Controller
 
         return response()->json(['response' => 'Multiple Contacts Deleted Successfully']); 
     }
+
+    public function addmultiplecontacts(Request $request) {
+        $userInput = $request->all();
+
+        foreach( $userInput['mobile'] as $key=>$item){
+          
+        }        
+       
+    }
+
+    // Import Contacts
+
+    public function importcontacts(Request $request) {
+        // dd($request);
+        if($request->file('import_file'))
+      {
+                $path = $request->file('import_file')->getRealPath();
+                $data = Excel::load($path, function($reader)
+          {
+                })->get();
+
+          if(!empty($data) && $data->count())
+          {
+            foreach ($data->toArray() as $row)
+            {
+
+              if(!empty($row))
+              {
+                $dataArray[] =
+                [
+                  'contact_name' => $row['contact_name'],
+                  'contact_email' => $row['contact_email'],
+                  'contact_mobile' => $row['contact_mobile']
+                ];
+              }
+          }
+          if(!empty($dataArray))
+          {
+             Contact::insert($dataArray);
+             return back();
+           }
+         }
+       }
+   }
 }

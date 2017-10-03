@@ -313,7 +313,7 @@
                         </div>
                 
                         <div class="white-box visible-xs hidden-sm hidden-md visible-lg" id="wb">
-                            <a href="contacts.html"><div class="r-icon-stats" id="leftmainicons"> <img class="img-responsive" src="../../img/Contact.png">
+                            <a href="{{url('contacts')}}"><div class="r-icon-stats" id="leftmainicons"> <img class="img-responsive" src="../../img/Contact.png">
                                 <br>
                                 <p>Contacts</p>
                             </div></a>

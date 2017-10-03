@@ -58,7 +58,32 @@
             $('#contactsTable').DataTable();
             
             $(document).ready(function () {
-         
+
+              // $('select').change(function() {
+              //     alert($(this).text());
+              // });
+
+              // $('select').on('change', function() {
+              //   alert( this.value );
+              // })
+              
+
+              // Contacts Edit and Delete 
+                
+                $('select').on('change', function() {
+                    // alert( $(this).find(":selected").text() );
+                     var id =  $(this).find(":selected").val();
+                    if($(this).find(":selected").text() == 'Edit'){
+                        showModal(id);
+                    }
+
+                    if($(this).find(":selected").text() == 'Delete'){
+                        deleteContact(id);
+                    }
+                });
+
+
+
                 var table = $('#example').DataTable({
                     "columnDefs": [
                         {
@@ -244,12 +269,22 @@
             i++;
         });
 
-        $(document).on('click', 'button.removebutton', function () {
+        $(document).on('click', 'span.removebutton', function () {
             alert("Are you sure to remove this contact?");
             $(this).closest('tr').remove();
             return false;
         });
 
+        // Enter only number in the mobile number area in Add Contacts Section
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+        
     </script>
       
      

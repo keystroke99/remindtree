@@ -87,9 +87,15 @@
 																				
 																			</td>
 																			<td>
-																				<button class="btn btn-primary"><i class="fa fa-envelope-o" aria-hidden="true"></i></button>
+																				<select id="editcontact">
+																					<option>Select</option>
+																					<option>Send</option>
+																					<option onchange="showModal({{ $contact->id }})" value="{{ $contact->id }}">Edit</option>
+																					<option onchange="deleteContact({{ $contact->id }})" value="{{ $contact->id }}">Delete</option>
+																				</select>
+																				<!-- <button class="btn btn-primary"><i class="fa fa-envelope-o" aria-hidden="true"></i></button>
 																				<button class="btn btn-info" onclick="showModal({{ $contact->id }})"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-																				<button class="btn btn-danger" onclick="deleteContact({{ $contact->id }})"><i class="fa fa-trash" aria-hidden="true"></i></button>
+																				<button class="btn btn-danger" onclick="deleteContact({{ $contact->id }})"><i class="fa fa-trash" aria-hidden="true"></i></button> -->
 																			</td>
 																		</tr>
 																		@endforeach																
@@ -109,7 +115,8 @@
 												<li><a href="#" style="border-bottom: 1px solid #ddd !important;">Add Contacts</a>
 													 <section>
 													  
-															<form class="omb_loginForm" action="" autocomplete="off" method="POST">
+															<form class="omb_loginForm" action="{{url('addmultiplecontacts')}}" autocomplete="off" method="POST">
+																{{csrf_field()}}
 																<!-- <div  class="row">
 																	<div class="col-md-2 col-lg-2" id="marginbottom">
 																		 <input id="phone" type="tel">
@@ -144,23 +151,81 @@
 																        </thead> -->
 																        <tr class="participantRow">
 																            <td>
-																            	<input type="text" name="mobile[]" placeholder="Mobile no with Country Code" class="form-control" required>
+																            	<input type="text" name="mobile[]" placeholder="Mobile no with Country Code" class="form-control" required onkeypress="return isNumber(event)"> 
 																            </td>
 																            <td>
 																            	<input type="email" class="form-control" name="email[]" placeholder="Email Address" style="width: 100%;">
 																            </td>
-																            <td><input name="firstname[]" id="" type="text" placeholder="First Name" class="form-control" required>
+																            <td><input name="firstname[]" id="" type="text" placeholder="First Name" class="form-control" >
 																              </td>
 																            <td>
-																                <input name="lastname[]" id="" type="text" placeholder="Last Name" class="form-control" required>
+																                <input name="lastname[]" id="" type="text" placeholder="Last Name" class="form-control" >
 																            </td>
-																            <td><button class="btn btn-danger remove removebutton" type="button" title="Remove this row">Remove</button></td>
+																            <td><span class="glyphicon glyphicon-remove removebutton" aria-hidden="true"></span></td>
+																        </tr>
+																        <tr class="participantRow">
+																            <td>
+																            	<input type="text" name="mobile[]" placeholder="Mobile no with Country Code" class="form-control" required onkeypress="return isNumber(event)">
+																            </td>
+																            <td>
+																            	<input type="email" class="form-control" name="email[]" placeholder="Email Address" style="width: 100%;">
+																            </td>
+																            <td><input name="firstname[]" id="" type="text" placeholder="First Name" class="form-control" >
+																              </td>
+																            <td>
+																                <input name="lastname[]" id="" type="text" placeholder="Last Name" class="form-control" >
+																            </td>
+																            <td><span class="glyphicon glyphicon-remove removebutton" aria-hidden="true"></span></td>
+																        </tr>
+																        <tr class="participantRow">
+																            <td>
+																            	<input type="text" name="mobile[]" placeholder="Mobile no with Country Code" class="form-control" required onkeypress="return isNumber(event)">
+																            </td>
+																            <td>
+																            	<input type="email" class="form-control" name="email[]" placeholder="Email Address" style="width: 100%;">
+																            </td>
+																            <td><input name="firstname[]" id="" type="text" placeholder="First Name" class="form-control" >
+																              </td>
+																            <td>
+																                <input name="lastname[]" id="" type="text" placeholder="Last Name" class="form-control" >
+																            </td>
+																            <td><span class="glyphicon glyphicon-remove removebutton" aria-hidden="true"></span></td>
+																        </tr>
+																        <tr class="participantRow">
+																            <td>
+																            	<input type="text" name="mobile[]" placeholder="Mobile no with Country Code" class="form-control" required onkeypress="return isNumber(event)">
+																            </td>
+																            <td>
+																            	<input type="email" class="form-control" name="email[]" placeholder="Email Address" style="width: 100%;">
+																            </td>
+																            <td><input name="firstname[]" id="" type="text" placeholder="First Name" class="form-control" >
+																              </td>
+																            <td>
+																                <input name="lastname[]" id="" type="text" placeholder="Last Name" class="form-control" >
+																            </td>
+																            <td><span class="glyphicon glyphicon-remove removebutton" aria-hidden="true"></span></td>
 																        </tr>
 																        
 																</table>
-																<tr id="addButtonRow">
-																            <td colspan="4"><center><button class="btn btn-large btn-success add" type="button" id="addButton">Add</button></center></td>
+																<table class="table table-hover" id="participantTable">
+																<tr class="participantRow">
+																            <td>
+																            	<input type="text" name="mobile[]" placeholder="Mobile no with Country Code" class="form-control" required onkeypress="return isNumber(event)">
+																            </td>
+																            <td>
+																            	<input type="email" class="form-control" name="email[]" placeholder="Email Address" style="width: 100%;">
+																            </td>
+																            <td><input name="firstname[]" id="" type="text" placeholder="First Name" class="form-control" >
+																              </td>
+																            <td>
+																                <input name="lastname[]" id="" type="text" placeholder="Last Name" class="form-control" >
+																            </td>
+																            <td><button class="btn btn-large btn-success add" type="button" id="addButton">Add</button></td>
 																        </tr>
+																    </table>
+																<!-- <tr id="addButtonRow">
+																            <td colspan="4"><center><button class="btn btn-large btn-success add" type="button" id="addButton">Add</button></center></td>
+																</tr> -->
 																<!-- <div  class="row">
 																	<div class="col-md-2 col-lg-2" id="marginbottom">
 																		<div class="input-group" id="marginbottom">
@@ -198,7 +263,7 @@
 																</div> -->
 																<BR>
 																<div style="float: right;">
-																<button class="btn btn-danger" type="submit">Cancel</button>
+																<button class="btn btn-danger" type="button">Cancel</button>
 																<button class="btn btn-success" type="submit">Add People</button>
 																</div>
 															</form>
@@ -415,16 +480,16 @@
 						  <h4 class="modal-title" style="text-align:center;">Import Contacts</h4>
 						</div>
 						<div class="modal-body">
-							<form class="omb_loginForm" action="" autocomplete="off" method="POST">
-								
+							<form class="omb_loginForm" action="{{url('importcontacts')}}" autocomplete="off" method="POST" enctype="multipart/form-data">
+								{{csrf_field()}}
 								<h4>Import Contacts</h4>
 								<p>You Can Import Contact from .CSV file with comma separated</p>
-								<p><a href="#">Click Here</a> to get sample CSV file</p>
-									<input type="file" class="form-control" name="file" placeholder="Sample File">
+								<p><a href="{{URL('uploads/contacts.csv')}}">Click Here</a> to get sample CSV file</p>
+									<input type="file" class="form-control" name="import_file" required placeholder="Sample File">
 								
 								<BR>
-								<button class="btn  btn-info"  type="submit">Import</button>
-								<button class="btn  btn-danger"  type="submit">Cancel</button>
+								<button class="btn btn-info" type="submit">Import</button>
+								<button class="btn btn-danger" type="button">Cancel</button>
 							</form>
 						</div>
 						<div class="modal-footer">
@@ -458,15 +523,15 @@
 		            	<div class="form-group">
 		            		<div class="form-group">
 		            	    <label for="modalname">Name</label>
-		            	    <input type="text" name="contact_name" class="form-control" id="modalname" placeholder="Name">
+		            	    <input type="text" name="contact_name" class="form-control" id="modalname" placeholder="Name" required>
 		            	  </div>
 		            	    <label for="modalemail">Email address</label>
-		            	    <input type="email" name="contact_email" class="form-control" id="modalemail" aria-describedby="emailHelp" placeholder="Enter email">
+		            	    <input type="email" name="contact_email" class="form-control" id="modalemail" aria-describedby="emailHelp" placeholder="Enter email" required>
 		            	    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 		            	  </div>
 		            	  <div class="form-group">
 		            	    <label for="modalphone">Phone Number</label>
-		            	    <input type="text" name="contact_mobile" class="form-control" id="modalphone" placeholder="Phone Number">
+		            	    <input type="text" name="contact_mobile" class="form-control" id="modalphone" placeholder="Phone Number" onkeypress="return isNumber(event)" required>
 		            	  </div>
 		            	 
 		            </div>

@@ -26,3 +26,7 @@ Route::get('deletecontact/{id}', 'DashboardController@deletecontact');
 Route::post('updatecontact/{id}', 'DashboardController@updatecontact');
 
 Route::post('multipledelete', 'DashboardController@multipledelete');
+
+Route::post('addmultiplecontacts', 'DashboardController@addmultiplecontacts');
+
+Route::post('importcontacts', 'DashboardController@importcontacts');
