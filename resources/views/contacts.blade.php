@@ -87,11 +87,11 @@
 																				
 																			</td>
 																			<td>
-																				<select id="editcontact">
+																				<select class="editcontact">
 																					<option>Select</option>
-																					<option>Send</option>
-																					<option onchange="showModal({{ $contact->id }})" value="{{ $contact->id }}">Edit</option>
-																					<option onchange="deleteContact({{ $contact->id }})" value="{{ $contact->id }}">Delete</option>
+																					<option value="{{ $contact->id }}">Send SMS</option>
+																					<option value="{{ $contact->id }}">Edit</option>
+																					<option value="{{ $contact->id }}">Delete</option>
 																				</select>
 																				<!-- <button class="btn btn-primary"><i class="fa fa-envelope-o" aria-hidden="true"></i></button>
 																				<button class="btn btn-info" onclick="showModal({{ $contact->id }})"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
@@ -502,12 +502,6 @@
 
 		<!-- Contacts Edit Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		    <div class="modal-dialog">
-		        <div class="modal-content"></div>
-		    </div>
-		    <div class="modal-dialog">
-		        <div class="modal-content"></div>
-		    </div>
 		    <div class="modal-dialog">
 		        <div class="modal-content">
 		            <div class="modal-header">

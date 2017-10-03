@@ -33,8 +33,6 @@
     <script>
         $(document).ready(function () {
 
-
-
             var rangeSlider = function(){
               var slider = $('.range-slider'),
                 range = $('.range-slider__range'),
@@ -56,23 +54,20 @@
             rangeSlider();
             
             $('#contactsTable').DataTable();
+            $('#groupsTable').DataTable();
             
             $(document).ready(function () {
 
-              // $('select').change(function() {
-              //     alert($(this).text());
-              // });
-
-              // $('select').on('change', function() {
-              //   alert( this.value );
-              // })
-              
-
-              // Contacts Edit and Delete 
+              // Contacts Edit and Delete
                 
-                $('select').on('change', function() {
+                $('.editcontact').on('change', function() {
                     // alert( $(this).find(":selected").text() );
                      var id =  $(this).find(":selected").val();
+
+                    if($(this).find(":selected").text() == 'Send SMS'){
+                        alert('Send SMS Option Selected');
+                    }
+
                     if($(this).find(":selected").text() == 'Edit'){
                         showModal(id);
                     }
@@ -81,6 +76,118 @@
                         deleteContact(id);
                     }
                 });
+
+              // Groups Edit and Delete
+
+              $('.groupSelect').on('change', function() {
+                    // alert( $(this).find(":selected").text() );
+                     var id =  $(this).find(":selected").val();
+
+                    if($(this).find(":selected").text() == 'View Contacts'){
+                        alert('View Contacts Option Selected');
+                    }
+
+                    if($(this).find(":selected").text() == 'Send SMS'){
+                        alert('Send SMS Option Selected');
+                    }
+
+                    if($(this).find(":selected").text() == 'Edit'){
+                        // alert('Edit Option Selected');
+                        editGroup(id);
+                    }
+
+                    if($(this).find(":selected").text() == 'Delete'){
+                        // alert('Delete Option Selected');
+                        deleteGroup(id);
+                    }
+                });
+
+                // Group Edit Modal
+                function editGroup(data)
+                {
+                   var id = data;
+
+                           $.ajax({
+                                   url:'/viewgroup/'+id,
+                                   dataType:'json',
+                                   type:'get',
+                                   cache:true,
+                                   success:  function (response) {
+                                       console.log(response);
+                                       $('#modalname').val(response.groupname);
+                                   },              
+                           });
+                  
+                   $("#GroupEditModal").modal();
+
+                   // Form Submission
+                       $("#editgroupform").submit(function(e) {
+                          console.log("Form Submission" + id);
+                       //prevent Default functionality
+                       e.preventDefault();
+
+                       //get the action-url of the form
+                       var actionurl = "/updategroup/"+id;
+
+                       //do your own request an handle the results
+                       $.ajax({
+                               url: actionurl,
+                               type: 'post',
+                               dataType: 'application/json',
+                               data: {groupname: $('#modalname').val(), _token:'{{ csrf_token() }}'},
+                               success: function(data) {
+                                  console.log(data);
+                                  $('#GroupEditModal').modal('hide');
+                               }
+                       });
+                       $('#GroupEditModal').modal('hide');
+
+                       location.reload();
+
+                   });
+
+                }
+
+              // Add a Group
+                $("#addGroupForm").submit(function(e) {
+
+                    var url = "addGroup"; // the script where you handle the form input.
+
+                    $.ajax({
+                           type: "POST",
+                           url: url,
+                           data: {groupname: $('#groupnameModal').val(), _token:'{{ csrf_token() }}'}, // serializes the form's elements.
+                           success: function(data)
+                           {
+                               console.log(data); // show response from the php script.
+                               $('#addGroup').modal('hide');
+                                location.reload();
+                           }
+                         });
+
+                    e.preventDefault(); // avoid to execute the actual submit of the form.
+                });
+
+              // Delete Group
+
+              function deleteGroup(groupid) {
+                var id = groupid;
+                  if (confirm("Are you sure to delete the Group?")) {
+
+                    $.ajax({
+                            url:'/deletegroup/'+id,
+                            dataType:'json',
+                            type:'get',
+                            cache:true,
+                            success:  function (response) {
+                                console.log(response);
+                               location.reload();
+                            },              
+                    });
+                      
+                  }
+                  return false;
+              }
 
 
 

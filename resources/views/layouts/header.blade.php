@@ -306,7 +306,7 @@
                         </div>
                 
                         <div class="white-box visible-xs hidden-sm hidden-md visible-lg" id="wb">
-                            <a href="group.html"><div class="r-icon-stats" id="leftmainicons"> <img class="img-responsive" src="../../img/Group.png">
+                            <a href="{{url('groups')}}"><div class="r-icon-stats" id="leftmainicons"> <img class="img-responsive" src="../../img/Group.png">
                                 <br>
                                 <p>Groups</p>   
                             </div></a>

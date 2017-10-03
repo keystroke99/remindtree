@@ -15,9 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Dashboard Main Pages
 Route::get('dashboard','DashboardController@index');
 Route::get('contacts','DashboardController@contacts');
+Route::get('groups', 'DashboardController@groups');
 
+
+// CRUD Operations
+
+// Contacts Section
 
 Route::get('viewcontact/{id}', 'DashboardController@viewcontact');
 
@@ -30,3 +40,13 @@ Route::post('multipledelete', 'DashboardController@multipledelete');
 Route::post('addmultiplecontacts', 'DashboardController@addmultiplecontacts');
 
 Route::post('importcontacts', 'DashboardController@importcontacts');
+
+// Groups Section
+
+Route::post('addGroup', 'DashboardController@addGroup');
+
+Route::get('viewgroup/{id}', 'DashboardController@viewgroup');
+
+Route::get('deletegroup/{id}', 'DashboardController@deletegroup');
+
+Route::post('updategroup/{id}', 'DashboardController@updategroup');

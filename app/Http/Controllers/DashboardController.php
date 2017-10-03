@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use App\Group;
 use App\Contact;
+use DB;
 use Excel;
 use Input;
+use Auth;
 
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()	{
 
     	return view('dashboard');
@@ -18,6 +25,8 @@ class DashboardController extends Controller
 
 
     // Contacts Section
+
+    // Display all contacts in the page
 
     public function contacts()	{
 
@@ -30,11 +39,15 @@ class DashboardController extends Controller
     	return view('contacts', compact('contacts'));
     }
 
+    // View Contact Info in Modal Window when clicked on Edit Option
+
     public function viewcontact($id) {
         $contact = DB::table('contacts')->where('id', $id)->first();
 
         return json_encode($contact);
     }
+
+    // Edit / Update a Contact
 
     public function updatecontact(Request $request, $id) {
             $contact = Contact::findOrFail($id);
@@ -48,11 +61,15 @@ class DashboardController extends Controller
             return response()->json(['response' => 'Updated Successfully']); 
     }
 
+    // Delete a Contact
+
     public function deletecontact($id){
         $contact = Contact::findOrFail($id);
         $contact->delete();
          return response()->json(['response' => 'Contact Deleted Successfully']);
     }
+
+    // Delete Multiple Contacts
 
     public function multipledelete(Request $request){
 
@@ -62,11 +79,22 @@ class DashboardController extends Controller
         return response()->json(['response' => 'Multiple Contacts Deleted Successfully']); 
     }
 
+    // Add Multiple Contacts
+
     public function addmultiplecontacts(Request $request) {
         $userInput = $request->all();
 
-        foreach( $userInput['mobile'] as $key=>$item){
-          
+        dd($request);
+
+        foreach( $userInput['mobile'] as $item){
+          $contact = new Contact;
+          $contact->contact_name  = $request->groupname;
+          $contact->contact_email  = $request->groupname;
+          $contact->contact_mobile  = $userInput['mobile'];
+
+          $contact->userid  = Auth::user()->id;
+
+          $group->save();
         }        
        
     }
@@ -105,4 +133,67 @@ class DashboardController extends Controller
          }
        }
    }
+
+   // Groups Section
+
+   public function groups() {
+
+    // $groups = Group::where('userid', Auth::user()->id)->get();
+    
+    $groups = DB::table('groups')
+            ->join('contacts', 'groups.id', '=', 'contacts.group_id')
+            ->select('groups.id', 'groups.groupname as groupname', DB::raw('COUNT(contacts.id) as contactscount'), 'groups.created_at')
+            ->where('groups.userid', Auth::user()->id)
+            ->groupBy('groups.id')
+            ->get();
+
+            // dd($groups);
+
+    return view('groups', compact('groups'));
+   }
+
+  // Add a Group
+
+   public function addGroup(Request $request) {
+
+
+      $group = new Group;
+      $group->groupname  = $request->groupname;
+      $group->userid  = Auth::user()->id;
+
+      $group->save();
+
+      return response()->json(['response' => 'Group Added Successfully']); 
+   }
+
+
+   // View Contact Info in Modal Window when clicked on Edit Option
+
+    public function viewgroup($id) {
+        $group = DB::table('groups')->where('id', $id)->first();
+
+        return json_encode($group);
+    }
+
+    // Edit / Update a Contact
+
+    public function updategroup(Request $request, $id) {
+
+
+            $group = Group::findOrFail($id);
+
+            $group->groupname = $request->input('groupname');
+
+            $group->save();
+
+            return response()->json(['response' => 'Group Updated Successfully']); 
+    }
+
+    // Delete a Contact
+
+    public function deletegroup($id){
+        $group = Group::findOrFail($id);
+        $group->delete();
+         return response()->json(['response' => 'Group Deleted Successfully']);
+    }
 }
