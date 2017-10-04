@@ -84,18 +84,33 @@ class DashboardController extends Controller
     public function addmultiplecontacts(Request $request) {
         $userInput = $request->all();
 
-        dd($request);
+        $mobileNo = $request->mobile;
+        $emails  = $request->email;
+        $firstNames  = $request->firstname;
+        $lastNames  = $request->lastname;
 
-        foreach( $userInput['mobile'] as $item){
-          $contact = new Contact;
-          $contact->contact_name  = $request->groupname;
-          $contact->contact_email  = $request->groupname;
-          $contact->contact_mobile  = $userInput['mobile'];
+          for($i=0; $i < (count($mobileNo)); $i++) {
+            $contact = new Contact;
+          $contact->contact_name  = $mobileNo[$i];
+          $contact->contact_email  = $emails[$i];
+          $contact->contact_mobile  = $firstNames[$i].$lastNames[$i];
 
-          $contact->userid  = Auth::user()->id;
+          $contact->user_id  = Auth::user()->id;
 
-          $group->save();
-        }        
+          $contact->save();
+          }
+        return back();
+
+        // foreach( $userInput['mobile'] as $item){
+        //   $contact = new Contact;
+        //   $contact->contact_name  = $request->groupname;
+        //   $contact->contact_email  = $request->groupname;
+        //   $contact->contact_mobile  = $userInput['mobile'];
+
+        //   $contact->userid  = Auth::user()->id;
+
+        //   $group->save();
+        // }        
        
     }
 

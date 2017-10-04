@@ -13,3 +13,7 @@
 7. Created Group Model.
 8. Add, Edit and Delete Groups Functionality Completed.
 
+# 04/10/2017
+
+1. Finished Adding multiple contacts from Contacts Page.
+
