@@ -155,9 +155,16 @@ class DashboardController extends Controller
 
     // $groups = Group::where('userid', Auth::user()->id)->get();
     
+    // $groups = DB::table('groups')
+    //         ->join('contacts', 'groups.id', '=', 'contacts.group_id')
+    //         ->select('groups.id', 'groups.groupname as groupname', DB::raw('COUNT(contacts.id) as contactscount'), 'groups.created_at')
+    //         ->where('groups.userid', Auth::user()->id)
+    //         ->groupBy('groups.id')
+    //         ->get();
+
     $groups = DB::table('groups')
-            ->join('contacts', 'groups.id', '=', 'contacts.group_id')
-            ->select('groups.id', 'groups.groupname as groupname', DB::raw('COUNT(contacts.id) as contactscount'), 'groups.created_at')
+            ->leftjoin('contacts', 'contacts.group_id', '=', 'groups.id')
+            ->select('groups.id', 'groups.groupname as groupname', DB::raw('COUNT(contacts.group_id) as contactscount'), 'groups.created_at')
             ->where('groups.userid', Auth::user()->id)
             ->groupBy('groups.id')
             ->get();
