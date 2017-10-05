@@ -223,45 +223,7 @@
 																            <td><button class="btn btn-large btn-success add" type="button" id="addButton">Add</button></td>
 																        </tr>
 																    </table>
-																<!-- <tr id="addButtonRow">
-																            <td colspan="4"><center><button class="btn btn-large btn-success add" type="button" id="addButton">Add</button></center></td>
-																</tr> -->
-																<!-- <div  class="row">
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		<div class="input-group" id="marginbottom">
-																			<select class="form-control" id="state" style="width: 100%;">
-																				<option style="width: 100%;" data-countryCode="US" value="1">USA (+1)</option>
-																				<optgroup label="Other countries" style="width: 100%;">
-																					<option data-countryCode="DZ" value="213">Algeria (+213)</option>
-																					<option data-countryCode="AD" value="376">Andorra (+376)</option>
-																					<option data-countryCode="AO" value="244">Angola (+244)</option>
-																					<option data-countryCode="AI" value="1264">Anguilla (+1264)</option>
-																					<option data-countryCode="AG" value="1268">Antigua &amp; Barbuda (+1268)</option>
-																					<option data-countryCode="AR" value="54">Argentina (+54)</option>
-																					<option data-countryCode="AM" value="374">Armenia (+374)</option>
-																				</optgroup>
-																			</select>
-																		</div>
-																	</div>
-																	<div class="col-md-5 col-lg-5" id="marginbottom">
-																		
-																		<input type="email" class="form-control" name="email" placeholder="Email Address" style="width: 100%;">
-																	</div>
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		
-																		<input type="text" class="form-control" name="firstname" placeholder="First Name" style="width: 100%;">
-																	</div>
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		
-																		<input type="text" class="form-control" name="lastname" placeholder="Last Name" style="width: 100%;">
-																	</div>
-																	<div class="col-md-1 col-lg-1" id="marginbottom">
-																		
-																		<button class="btn btn-info" type="submit">Add</button>	
-																	</div>
-																	
-																</div> -->
-																<BR>
+																<br>
 																<div style="float: right;">
 																<button class="btn btn-danger" type="button">Cancel</button>
 																<button class="btn btn-success" type="submit">Add People</button>
@@ -273,17 +235,13 @@
 																	<div class="" id="marginbottom">
 																		<div class="input-group" id="marginbottom">
 																				<div class="input-group" id="marginbottom">
-																			<select class="form-control" id="state" style="width: 100%;">
+																			<select class="form-control" name="group_id" style="width: 100%;" form="ImportForm">
 																				
 																				<optgroup label="" style="width: 100%;">
 																					<option value="">Select Group</option>
-																					<option value="">Group Name1</option>
-																					<option value="">Group Name2</option>
-																					<option value="">Group Name3</option>
-																					<option value="">Group Name4</option>
-																					<option value="">Group Name5</option>
-																					<option value="">Group Name6</option>
-																					<option value="">Group Name7</option>
+																					@foreach($groups as $group)
+																					<option value="{{$group->id}}">{{$group->groupname}}</option>
+																					@endforeach
 																				</optgroup>
 																			</select>
 																			
@@ -480,7 +438,7 @@
 						  <h4 class="modal-title" style="text-align:center;">Import Contacts</h4>
 						</div>
 						<div class="modal-body">
-							<form class="omb_loginForm" action="{{url('importcontacts')}}" autocomplete="off" method="POST" enctype="multipart/form-data">
+							<form class="omb_loginForm" action="{{url('importcontacts')}}" autocomplete="off" method="POST" enctype="multipart/form-data" id="ImportForm">
 								{{csrf_field()}}
 								<h4>Import Contacts</h4>
 								<p>You Can Import Contact from .CSV file with comma separated</p>

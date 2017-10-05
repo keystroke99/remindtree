@@ -16,5 +16,8 @@
 # 04/10/2017
 
 1. Finished Adding multiple contacts from Contacts Page.
-2.Updated the Groups Databale Code in DashboardController and Uploaded the latest DB backup to the Database folder
+2. Updated the Groups Databale Code in DashboardController and Uploaded the latest DB backup to the Database folder
+
+# 05/10/2017
+1. Added Select Groups to the Import Contacts Option and Modified the Controller code for the same.
 

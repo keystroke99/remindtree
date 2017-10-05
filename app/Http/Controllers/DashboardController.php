@@ -35,8 +35,10 @@ class DashboardController extends Controller
             ->select('contacts.id', 'contacts.contact_name', 'contacts.contact_email', 'contacts.contact_mobile', 'groups.groupname', 'contacts.created_at','groups.status')
             ->get();
 
+      $groups  =  Group::where('userid', Auth::user()->id)->get();
+
          // dd($contacts);
-    	return view('contacts', compact('contacts'));
+    	return view('contacts', compact('contacts', 'groups'));
     }
 
     // View Contact Info in Modal Window when clicked on Edit Option
@@ -117,7 +119,8 @@ class DashboardController extends Controller
     // Import Contacts
 
     public function importcontacts(Request $request) {
-        // dd($request);
+          // dd($request);
+      $userid = Auth::user()->id;
         if($request->file('import_file'))
       {
                 $path = $request->file('import_file')->getRealPath();
@@ -136,10 +139,14 @@ class DashboardController extends Controller
                 [
                   'contact_name' => $row['contact_name'],
                   'contact_email' => $row['contact_email'],
-                  'contact_mobile' => $row['contact_mobile']
+                  'contact_mobile' => $row['contact_mobile'],
+                  'group_id' => $request->group_id,
+                   'user_id' => $userid
                 ];
               }
           }
+          // print_r($dataArray);exit;
+
           if(!empty($dataArray))
           {
              Contact::insert($dataArray);
