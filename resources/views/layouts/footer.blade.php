@@ -32,12 +32,33 @@
           $(document).ready(function () {
                                $('#contactsTable').DataTable({
                                         processing: true,
-                                        responsive: true,
-                                        
-                                          "lengthChange": false,
-                                         
+                                        responsive: true,                                        
+                                        "lengthChange": false,
                                         "ajax":{"url":"rendercontacts","dataSrc":""},
-                                        // "ajax": "/rendercontacts",
+                                        "initComplete": function(settings, json) {
+                                               $("button").click(function() {
+                                                 console.log('button fired');
+                                                   var id = $(this).val();
+                                                   if (confirm("Are you sure?")) {
+                                                     var table = $('#contactsTable').DataTable();
+                                                      var $button = $(this);
+                                                     $.ajax({
+                                                             url:'/deletecontact/'+id,
+                                                             dataType:'json',
+                                                             type:'get',
+                                                             cache:true,
+                                                             success:  function (response) {
+                                                                 console.log(response);
+                                                                table.row( $button.parents('tr') ).remove().draw();
+                                                             },              
+                                                     });
+                                                       
+                                                   }
+                                                   return false;
+                                               });
+                                               
+                                             },
+                                        
                                         "columns": [
                                           { 
                                               "mData": "id",
@@ -61,13 +82,14 @@
                                           { 
                                               "mData": "id",
                                                               "mRender": function (data, type, row) {
-                                                                  return "<button class='btn btn-primary' title='Send SMS to this Contact'><i class='fa fa-envelope-o' aria-hidden='true'></i></button><button class='btn btn-info' onclick='showModal("+ data +")' title='Edit this Contact'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button class='btn btn-danger' onclick='deleteContact("+ data +")' title='Delete this Contact'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                                                                  return "<button class='btn btn-primary' title='Send SMS to this Contact'><i class='fa fa-envelope-o' aria-hidden='true'></i></button><button class='btn btn-info' onclick='showModal("+ data +")' title='Edit this Contact'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button type='button' class='btn btn-danger my_button' data-value='"+ data +"' value='"+ data +"' title='Delete this Contact'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                                                               }
                                            }
+
                                         ]
                                     });    // Contacts Page Table
                     
-                   
+
 
             var rangeSlider = function(){
               var slider = $('.range-slider'),
@@ -135,16 +157,12 @@
                                           { 
                                               "mData": "id",
                                                               "mRender": function (data, type, row) {
-                                                                  return "<button class='btn btn-default' title='View Contacts'><i class='fa fa-eye' aria-hidden='true'></i></button><button class='btn btn-primary' title='Send SMS to this Contact'><i class='fa fa-envelope-o' aria-hidden='true'></i></button><button class='btn btn-info' onclick='editGroup("+ data +")' title='Edit this Group'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button class='btn btn-danger' onclick='deleteGroup("+ data +")' title='Delete this Group'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                                                                  return "<button class='btn btn-default' title='View Contacts'><i class='fa fa-eye' aria-hidden='true'></i></button><button class='btn btn-primary' title='Send SMS to this Contact'><i class='fa fa-envelope-o' aria-hidden='true'></i></button><button class='btn btn-info' onclick='editGroup("+ data +")' title='Edit this Group'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button class='btn btn-danger' value='deleteGroup("+ data +")' title='Delete this Group'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                                                               }
                                            }
                                         ]
                                     });      // Groups Page Table
 
-
-
-
-                    
 
                            // Add Contacts
                     var i = 1;
@@ -206,23 +224,6 @@
                               }
                            }
 
-                // $('.editcontact').on("change", function() {
-                //                                    alert( $(this).find(":selected").text() );
-                //                                    var id =  $(this).find(":selected").val();
-
-                //                                   if($(this).find(":selected").text() == 'Send SMS'){
-                //                                       alert('Send SMS Option Selected');
-                //                                   }
-
-                //                                   if($(this).find(":selected").text() == 'Edit'){
-                //                                       showModal(id);
-                //                                   }
-
-                //                                   if($(this).find(":selected").text() == 'Delete'){
-                //                                       deleteContact(id);
-                //                                   }
-                //                               });
-                // Edit Contact
                  function showModal(data)
                             {
                                var id = data;
@@ -272,27 +273,7 @@
 
                             }
 
-                    // Delete Contact
-
-                    function deleteContact(contactid) {
-                      var id = contactid;
-                        if (confirm("Are you sure?")) {
-
-                          $.ajax({
-                                  url:'/deletecontact/'+id,
-                                  dataType:'json',
-                                  type:'get',
-                                  cache:true,
-                                  success:  function (response) {
-                                      console.log(response);
-                                     location.reload();
-                                  },              
-                          });
-                            
-                        }
-                        return false;
-                    }
-
+                    
 
                       // Group Edit Modal
                       function editGroup(data)
@@ -381,10 +362,10 @@
                         }
                         return false;
                     }
+
+
     </script>
 
-  
-     
 </body>
 
 </html>
