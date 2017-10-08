@@ -35,9 +35,9 @@
                                         responsive: true,                                        
                                         "lengthChange": false,
                                         "ajax":{"url":"rendercontacts","dataSrc":""},
-                                        "initComplete": function(settings, json) {
-                                               $("button").click(function() {
-                                                 console.log('button fired');
+                                        "fnInitComplete": function(settings, json) {
+                                               $("#contactsTable").on("click", ".my_button", function(){
+                                                  console.log('button fired');
                                                    var id = $(this).val();
                                                    if (confirm("Are you sure?")) {
                                                      var table = $('#contactsTable').DataTable();
@@ -56,6 +56,7 @@
                                                    }
                                                    return false;
                                                });
+                                               
                                                
                                              },
                                         

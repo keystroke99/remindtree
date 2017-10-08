@@ -25,4 +25,5 @@
 1. Added Edit, Delete, Send SmS buttons to Contacts and Groups, removed the dropdowns due to jquery issue.
 2. Added Server Side Rendering of datatables
 3. Added MomentJs and DataTime Scripts for the datatable.
+4. On Successful delete remove the specific row from the dataTable
 
