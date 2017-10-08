@@ -34,6 +34,24 @@
 
     <!-- color CSS -->
     <link href="{{asset('css/colors/megna.css')}}" id="theme" rel="stylesheet">
+    
+<!-- jQuery -->
+   
+    <script src="{{asset('plugins/bower_components/jquery/dist/jquery.min.js')}}"></script>
+    
+    <!-- Moment JS -->
+    <script src="{{asset('js/moment.min.js')}}"></script>
+    <!-- Data Tables -->
+     <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+     <script src="{{asset('js/datetime.js')}}"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{asset('bootstrap/dist/js/tether.min.js')}}"></script>
+    <script src="{{asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js')}}"></script>
+
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

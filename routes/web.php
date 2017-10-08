@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('rendercontacts', 'DashboardController@rendercontacts');
+Route::get('rendergroups', 'DashboardController@rendergroups');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,7 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('dashboard','DashboardController@index');
 Route::get('contacts','DashboardController@contacts');
 Route::get('groups', 'DashboardController@groups');
-
+Route::get('contacts1','DashboardController@contacts1');
 
 // CRUD Operations
 

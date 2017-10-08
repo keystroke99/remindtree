@@ -9,7 +9,7 @@
 					</div>
 					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
-                            <li><a href="businessdashboard.html">RemindTree</a></li>
+                            <li><a href="{{url('dashboard')}}">RemindTree</a></li>
                             <li class="active">Contacts</li>
                         </ol>
                     </div>
@@ -71,34 +71,7 @@
 																		</tr>
 																	</thead>
 																	<tbody>
-																		@foreach($contacts as $contact)
-																			<tr>
-																			<td width="5%" align="center">
-																				<input type="checkbox" name="sno" value="{{ $contact->id }}">
-																			</td>
-																			<td><b>{{ $contact->contact_name }}</b></td>
-																			<td>{{ $contact->contact_email }}</td>
-																			<td>{{ $contact->contact_mobile }}</td>
-																			<td>
-																				{{ $contact->groupname }}
-																			</td>
-																			<td>{{ date('Y-m-d', strtotime($contact->created_at)) }}</td>
-																			<td>Active
-																				
-																			</td>
-																			<td>
-																				<select class="editcontact">
-																					<option>Select</option>
-																					<option value="{{ $contact->id }}">Send SMS</option>
-																					<option value="{{ $contact->id }}">Edit</option>
-																					<option value="{{ $contact->id }}">Delete</option>
-																				</select>
-																				<!-- <button class="btn btn-primary"><i class="fa fa-envelope-o" aria-hidden="true"></i></button>
-																				<button class="btn btn-info" onclick="showModal({{ $contact->id }})"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-																				<button class="btn btn-danger" onclick="deleteContact({{ $contact->id }})"><i class="fa fa-trash" aria-hidden="true"></i></button> -->
-																			</td>
-																		</tr>
-																		@endforeach																
+																																	
 																	</tbody>	
 																</table>
 																<br>
@@ -117,38 +90,9 @@
 													  
 															<form class="omb_loginForm" action="{{url('addmultiplecontacts')}}" autocomplete="off" method="POST">
 																{{csrf_field()}}
-																<!-- <div  class="row">
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		 <input id="phone" type="tel">
-																	
-																	</div>
-																	<div class="col-md-5 col-lg-5" id="marginbottom">
-																		
-																		<input type="email" class="form-control" name="email" placeholder="Email Address" style="width: 100%;">
-																	</div>
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		
-																		<input type="text" class="form-control" name="firstname" placeholder="First Name" style="width: 100%;">
-																	</div>
-																	<div class="col-md-2 col-lg-2" id="marginbottom">
-																		
-																		<input type="text" class="form-control" name="lastname" placeholder="Last Name" style="width: 100%;">
-																	</div>
-																	<div class="col-md-1 col-lg-1" id="marginbottom">
-																		
-																		<a href="" title="Click to delete" onclick="return confirm('Do you want to delete?');" style="    padding: 8px 20px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-																	</div>
-																	
-																</div> -->
+																
 																<table class="table table-hover" id="participantTable">
-																       <!--  <thead>
-																            <tr>
-																                <th>Mobile No.</th>
-																                <th>Email</th>
-																                <th>First Name</th>
-																                <th>Last Name</th>
-																            </tr>
-																        </thead> -->
+																       
 																        <tr class="participantRow">
 																            <td>
 																            	<input type="text" name="mobile[]" placeholder="Mobile no with Country Code" class="form-control" required onkeypress="return isNumber(event)"> 
@@ -495,5 +439,6 @@
 		        </div>
 		    </div>
 		</div>
+
 
 @stop

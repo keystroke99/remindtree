@@ -8,7 +8,7 @@
 					</div>
 					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
-                            <li><a href="businessdashboard.html">RemindTree</a></li>
+                            <li><a href="{{url('dashboard')}}">RemindTree</a></li>
                             <li class="active">Group</li>
                         </ol>
                     </div>
@@ -66,7 +66,7 @@
 															</tr>
 														</thead>
 														<tbody>
-															@foreach($groups as $group)
+															<!-- @foreach($groups as $group)
 															<tr>
 																<td><b>{{ $group->groupname }}</b></td>
 																<td>{{ $group->contactscount }}</td>
@@ -81,7 +81,7 @@
 																	</select>
 																</td>
 															</tr>
-															@endforeach
+															@endforeach -->
 														</tbody>
 													</table>
 													<br>

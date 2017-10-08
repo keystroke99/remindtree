@@ -26,6 +26,24 @@ class DashboardController extends Controller
 
     // Contacts Section
 
+    // Datatable 
+    public function rendercontacts() {
+      $contacts = DB::table('contacts')
+            ->join('groups', 'contacts.group_id', '=', 'groups.id')
+            ->select('contacts.id', 'contacts.contact_name', 'contacts.contact_email', 'contacts.contact_mobile', 'groups.groupname', 'contacts.created_at','groups.status')
+            ->get();
+      return json_decode($contacts);
+    }
+    public function rendergroups() {
+      $groups = DB::table('groups')
+            ->leftjoin('contacts', 'contacts.group_id', '=', 'groups.id')
+            ->select('groups.id', 'groups.groupname', DB::raw('COUNT(contacts.group_id) as contactscount'), 'groups.created_at')
+            ->where('groups.userid', Auth::user()->id)
+            ->groupBy('groups.id')
+            ->get();
+      return json_decode($groups);
+    }
+
     // Display all contacts in the page
 
     public function contacts()	{
@@ -40,6 +58,7 @@ class DashboardController extends Controller
          // dd($contacts);
     	return view('contacts', compact('contacts', 'groups'));
     }
+
 
     // View Contact Info in Modal Window when clicked on Edit Option
 
@@ -171,7 +190,7 @@ class DashboardController extends Controller
 
     $groups = DB::table('groups')
             ->leftjoin('contacts', 'contacts.group_id', '=', 'groups.id')
-            ->select('groups.id', 'groups.groupname as groupname', DB::raw('COUNT(contacts.group_id) as contactscount'), 'groups.created_at')
+            ->select('groups.id', 'groups.groupname', DB::raw('COUNT(contacts.group_id) as contactscount'), 'groups.created_at')
             ->where('groups.userid', Auth::user()->id)
             ->groupBy('groups.id')
             ->get();

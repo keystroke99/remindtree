@@ -7,7 +7,7 @@
                         <h4 class="page-title">Business Dashboard</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
-                            <li><a href="businessdashboard.html">RemindTree</a></li>
+                            <li><a href="{{url('dashboard')}}">RemindTree</a></li>
                             <li class="active">BusinessDashboard</li>
                         </ol>
                     </div>
@@ -21,7 +21,7 @@
                     <div class="col-md-12"> 
                         <div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-								<div class="white-box" style="    background-color: #01c0c8 !important;">
+								<div class="white-box" style="background-color: #01c0c8 !important;">
 									<button class="btn btn-lg btn-primary" id="ctbtn" data-toggle="modal" data-target="#createTeam">CREATE TEAM</button>
 									<BR>
 									
