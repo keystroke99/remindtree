@@ -29,4 +29,4 @@
 
 # 09/10/2017
 1. Added Remove button and row delete option to the Groups Datatable
-
+2. Added Email Functionality
