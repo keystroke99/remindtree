@@ -27,3 +27,6 @@
 3. Added MomentJs and DataTime Scripts for the datatable.
 4. On Successful delete remove the specific row from the dataTable
 
+# 09/10/2017
+1. Added Remove button and row delete option to the Groups Datatable
+

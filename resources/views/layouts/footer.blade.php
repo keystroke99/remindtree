@@ -140,6 +140,31 @@
                                         responsive: true,
                                         
                                           "lengthChange": false,
+                                          "fnInitComplete": function(settings, json) {
+                                                 $("#groupsTable").on("click", ".my_button", function(){
+                                                    console.log('button fired');
+                                                     var id = $(this).val();
+                                                     var table = $('#groupsTable').DataTable();
+                                                     var $button = $(this);
+                                                    if (confirm("Are you sure to delete the Group?")) {
+
+                                                                              $.ajax({
+                                                                                      url:'/deletegroup/'+id,
+                                                                                      dataType:'json',
+                                                                                      type:'get',
+                                                                                      cache:true,
+                                                                                      success:  function (response) {
+                                                                                          console.log(response);
+                                                                                          table.row( $button.parents('tr') ).remove().draw();
+                                                                                      },              
+                                                                              });
+                                                                                
+                                                                            }
+                                                                            return false;
+                                                 });
+                                                 
+                                                 
+                                               },
                                          
                                         "ajax":{"url":"rendergroups","dataSrc":""},
                                         // "ajax": "/rendercontacts",
@@ -158,11 +183,32 @@
                                           { 
                                               "mData": "id",
                                                               "mRender": function (data, type, row) {
-                                                                  return "<button class='btn btn-default' title='View Contacts'><i class='fa fa-eye' aria-hidden='true'></i></button><button class='btn btn-primary' title='Send SMS to this Contact'><i class='fa fa-envelope-o' aria-hidden='true'></i></button><button class='btn btn-info' onclick='editGroup("+ data +")' title='Edit this Group'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button class='btn btn-danger' value='deleteGroup("+ data +")' title='Delete this Group'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                                                                  return "<button class='btn btn-default' title='View Contacts'><i class='fa fa-eye' aria-hidden='true'></i></button><button class='btn btn-primary' title='Send SMS to this Contact'><i class='fa fa-envelope-o' aria-hidden='true'></i></button><button class='btn btn-info' onclick='editGroup("+ data +")' title='Edit this Group'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button class='btn btn-danger my_button' value='"+ data +"' title='Delete this Group'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                                                               }
                                            }
                                         ]
                                     });      // Groups Page Table
+
+                    // // Delete Group
+
+                    // function deleteGroup(groupid) {
+                    //   var id = groupid;
+                    //     if (confirm("Are you sure to delete the Group?")) {
+
+                    //       $.ajax({
+                    //               url:'/deletegroup/'+id,
+                    //               dataType:'json',
+                    //               type:'get',
+                    //               cache:true,
+                    //               success:  function (response) {
+                    //                   console.log(response);
+                    //                  location.reload();
+                    //               },              
+                    //       });
+                            
+                    //     }
+                    //     return false;
+                    // }
 
 
                            // Add Contacts
@@ -343,26 +389,7 @@
                           e.preventDefault(); // avoid to execute the actual submit of the form.
                       });
 
-                    // Delete Group
-
-                    function deleteGroup(groupid) {
-                      var id = groupid;
-                        if (confirm("Are you sure to delete the Group?")) {
-
-                          $.ajax({
-                                  url:'/deletegroup/'+id,
-                                  dataType:'json',
-                                  type:'get',
-                                  cache:true,
-                                  success:  function (response) {
-                                      console.log(response);
-                                     location.reload();
-                                  },              
-                          });
-                            
-                        }
-                        return false;
-                    }
+                   
 
 
     </script>
