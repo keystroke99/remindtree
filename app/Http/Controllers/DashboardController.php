@@ -9,6 +9,8 @@ use DB;
 use Excel;
 use Input;
 use Auth;
+use Twilio;
+
 
 
 class DashboardController extends Controller
@@ -18,12 +20,28 @@ class DashboardController extends Controller
         $this->middleware('auth');
     }
 
+    // SMS Testimg
+
+    public function testsms() {
+
+      return view('testsms');
+
+    }
+
+    public function sendsms(Request $request) {
+
+        Twilio::message($request->mobile, $request->message);
+
+        return "message sent successfully";
+    }
+
+    // Email Testing
+
     public function testmail(){
       return view('testmail');
     }
 
    
-
     public function index()	{
 
     	return view('dashboard');

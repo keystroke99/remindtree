@@ -30,7 +30,6 @@
 
     <!-- Datatables -->
     <link href="{{asset('css/jquery.dataTables.min.css')}}" rel="stylesheet">
-    <link href="{{asset('css/buttons.dataTables.min.css')}}" rel="stylesheet">
 
     <!-- color CSS -->
     <link href="{{asset('css/colors/megna.css')}}" id="theme" rel="stylesheet">
@@ -44,8 +43,7 @@
     <!-- Data Tables -->
      <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
      <script src="{{asset('js/datetime.js')}}"></script>
-    <!-- start - This is for export functionality only -->
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="{{asset('bootstrap/dist/js/tether.min.js')}}"></script>
     <script src="{{asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>

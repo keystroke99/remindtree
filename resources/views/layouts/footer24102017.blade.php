@@ -28,6 +28,7 @@
 
 
     <script>
+      
 
           $(document).ready(function () {
                                $('#contactsTable').DataTable({
@@ -57,22 +58,9 @@
                                                    return false;
                                                });
                                                
-                                               $('#contactsTable').on('change', ".editcontact", function() {
-                                                                    // alert( $(this).find(":selected").text() );
-                                                                     var id =  $(this).find(":selected").val();
-                                                
-                                                                    if($(this).find(":selected").text() == 'Send SMS'){
-                                                                        alert('Send SMS Option Selected');
-                                                                    }
-                                                
-                                                                    if($(this).find(":selected").text() == 'Edit'){
-                                                                        showModal(id);
-                                                                    }
-                                                
-                                                                    if($(this).find(":selected").text() == 'Delete'){
-                                                                        deleteContact(id);
-                                                                    }
-                                                                });
+                                               $('select').on('change', function() {
+                                                   alert( $(this).find(":selected").val() );
+                                               });
                                              },
                                              dom: 'Bfrtip',
                                                      buttons: [
@@ -105,7 +93,7 @@
                                           { 
                                               "mData": "id",
                                                               "mRender": function (data, type, row) {
-                                                                  return "<select class='editcontact'><option>Select</option><option value='"+ data +"'>Send SMS</option><option value='"+ data +"'>Edit</option><option value='"+ data +"'>Delete</option></select>";
+                                                                  return "<button class='btn btn-primary' title='Send SMS to this Contact'><i class='fa fa-envelope-o' aria-hidden='true'></i></button><button class='btn btn-info' onclick='showModal("+ data +")' title='Edit this Contact'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button type='button' class='btn btn-danger my_button' data-value='"+ data +"' value='"+ data +"' title='Delete this Contact'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                                                               }
                                            }
 

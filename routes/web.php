@@ -10,9 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('pilvo', 'DashboardController@sendSMS');
+// Email
+
 Route::get('/testmail', 'DashboardController@testmail');
 Route::post('/sendemail', 'EmailController@sendemail');
+
+// SmS 
+
+Route::get('/testsms', 'DashboardController@testsms');
+Route::post('/testsms', 'DashboardController@sendsms');
 
 Route::get('rendercontacts', 'DashboardController@rendercontacts');
 Route::get('rendergroups', 'DashboardController@rendergroups');
