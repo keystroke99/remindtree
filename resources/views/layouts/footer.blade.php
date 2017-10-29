@@ -36,7 +36,7 @@
                                         "lengthChange": false,
                                         "ajax":{"url":"rendercontacts","dataSrc":""},
                                         "fnInitComplete": function(settings, json) {
-                                               $("#contactsTable").on("click", ".my_button", function(){
+                                               $("#contactsTable").on("change", ".editcontact", function(){
                                                   console.log('button fired');
                                                    var id = $(this).val();
                                                    if (confirm("Are you sure?")) {
@@ -69,9 +69,9 @@
                                                                         showModal(id);
                                                                     }
                                                 
-                                                                    if($(this).find(":selected").text() == 'Delete'){
-                                                                        deleteContact(id);
-                                                                    }
+                                                                    // if($(this).find(":selected").text() == 'Delete'){
+                                                                    //     deleteContact(id);
+                                                                    // }
                                                                 });
                                              },
                                              dom: 'Bfrtip',

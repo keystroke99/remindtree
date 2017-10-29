@@ -34,3 +34,7 @@
 # 21/10/2017
 
 1. Added Dropdown Functionality in Contacts Section
+
+# 29/10/2017
+
+1. Added Delete Contact functionality to Contacts page Drop Down
