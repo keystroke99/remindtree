@@ -38,3 +38,4 @@
 # 29/10/2017
 
 1. Added Delete Contact functionality to Contacts page Drop Down
+2. Added Dropdown functionlaity to groups page for edit and delete options
