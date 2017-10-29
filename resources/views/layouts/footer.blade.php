@@ -37,7 +37,8 @@
                                         "ajax":{"url":"rendercontacts","dataSrc":""},
                                         "fnInitComplete": function(settings, json) {
                                                $("#contactsTable").on("change", ".editcontact", function(){
-                                                  console.log('button fired');
+                                                if($(this).find(":selected").text() == 'Delete'){
+                                                    console.log('Delete Option fired');
                                                    var id = $(this).val();
                                                    if (confirm("Are you sure?")) {
                                                      var table = $('#contactsTable').DataTable();
@@ -54,6 +55,8 @@
                                                      });
                                                        
                                                    }
+                                                }
+                                                 
                                                    return false;
                                                });
                                                
@@ -163,8 +166,9 @@
                                         
                                           "lengthChange": false,
                                           "fnInitComplete": function(settings, json) {
-                                                 $("#groupsTable").on("click", ".my_button", function(){
-                                                    console.log('button fired');
+                                                 $("#groupsTable").on("change", ".editgroup", function(){
+                                                  if($(this).find(":selected").text() == 'Delete'){
+                                                    console.log('group delete button fired');
                                                      var id = $(this).val();
                                                      var table = $('#groupsTable').DataTable();
                                                      var $button = $(this);
@@ -181,11 +185,28 @@
                                                                                       },              
                                                                               });
                                                                                 
-                                                                            }
+                                                                            }  
+                                                  }
+                                                    
                                                                             return false;
                                                  });
                                                  
-                                                 
+                                                 $('#groupsTable').on('change', ".editgroup", function() {
+                                                                      // alert( $(this).find(":selected").text() );
+                                                                       var id =  $(this).find(":selected").val();
+                                                  
+                                                                      if($(this).find(":selected").text() == 'Send SMS'){
+                                                                          alert('Send SMS Option Selected');
+                                                                      }
+                                                  
+                                                                      if($(this).find(":selected").text() == 'Edit'){
+                                                                          editGroupModal(id);
+                                                                      }
+                                                  
+                                                                      // if($(this).find(":selected").text() == 'Delete'){
+                                                                      //     deleteContact(id);
+                                                                      // }
+                                                                  });
                                                },
                                          
                                         "ajax":{"url":"rendergroups","dataSrc":""},
@@ -205,7 +226,7 @@
                                           { 
                                               "mData": "id",
                                                               "mRender": function (data, type, row) {
-                                                                  return "<button class='btn btn-default' title='View Contacts'><i class='fa fa-eye' aria-hidden='true'></i></button><button class='btn btn-primary' title='Send SMS to this Contact'><i class='fa fa-envelope-o' aria-hidden='true'></i></button><button class='btn btn-info' onclick='editGroup("+ data +")' title='Edit this Group'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button class='btn btn-danger my_button' value='"+ data +"' title='Delete this Group'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                                                                  return "<select class='editgroup'><option>Select</option><option value='"+ data +"'>View Contacts</option><option value='"+ data +"'>Send SMS</option><option value='"+ data +"'>Edit</option><option class='deletegroupoption' value='"+ data +"'>Delete</option></select>";
                                                               }
                                            }
                                         ]
@@ -345,7 +366,7 @@
                     
 
                       // Group Edit Modal
-                      function editGroup(data)
+                      function editGroupModal(data)
                       {
                         
                          var id = data;
